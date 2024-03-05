@@ -1,0 +1,11 @@
+﻿<!-- At the end of the body in Views/Shared/_Layout.cshtml -->
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <div>
+        <label for="start">Start Number: </label>
+        <input type="text" id="start" name="start" required="required" />
+        <label for="end">End Number: </label>
+        <input type="text" id="end" name="end" required="required" />
+        <button type="submit">Generate Random Number</button>
+    </div>
+}
