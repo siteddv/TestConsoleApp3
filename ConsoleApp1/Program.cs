@@ -4,4 +4,4 @@ Console.WriteLine("I");
 Console.WriteLine("love");
 Console.WriteLine("jrat");
 
-Console.WriteLine( " Dima Gey");
+Console.WriteLine( " Dima Pidorasinaaaaa");
