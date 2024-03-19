@@ -1,26 +1,61 @@
 ﻿using ConsoleApp1;
 
-Product product = new Product();
-product.Name = "Apple";
-product.Price = 0.99m;
-product.Articul = "123";
-product.Description = "Red apple";
+int productCount = GetProductCountFromConsole();
+List<Product> products = GetProductsInfo(productCount);
+PrintProductsInfo(products);
 
-Product product2 = new Product();
-product2.Name = "Banana";
-product2.Price = 1.99m;
-product2.Articul = "124";
-product2.Description = "Yellow banana";
-
-List<Product> products = new List<Product>();
-products.Add(product);
-products.Add(product2);
-
-foreach (var p in products)
+static void PrintProductsInfo(List<Product> products)
 {
-    Console.WriteLine("Name ");
-    Console.WriteLine(p.Price);
-    Console.WriteLine(p.Articul);
-    Console.WriteLine(p.Description);
+    Console.WriteLine("Info about products:");
+    foreach (var p in products)
+    {
+        PrintProduct(p);
+    }
+}
+
+static List<Product> GetProductsInfo(int productCount)
+{
+    List<Product> products = new List<Product>();
+    for (int i = 0; i < productCount; i++)
+    {
+        Console.WriteLine($"Enter info about product {i + 1}");
+        Product product = GetProductFromConsole();
+        products.Add(product);
+    }
+
+    return products;
+}
+
+static int GetProductCountFromConsole()
+{
+    Console.WriteLine("Enter number of products that you want to add");
+    return int.Parse(Console.ReadLine());
+}
+
+static void PrintProduct(Product product)
+{
+    Console.WriteLine(product.Name);
+    Console.WriteLine(product.Price);
+    Console.WriteLine(product.Articul);
+    Console.WriteLine(product.Description);
     Console.WriteLine();
+}
+
+static Product GetProductFromConsole()
+{
+    Product product = new Product();
+
+    Console.Write("Enter product name: ");
+    product.Name = Console.ReadLine();
+
+    Console.Write("Enter product price: ");
+    product.Price = decimal.Parse(Console.ReadLine());
+
+    Console.Write("Enter product articul: ");
+    product.Articul = Console.ReadLine();
+
+    Console.Write("Enter product description: ");
+    product.Description = Console.ReadLine();
+
+    return product;
 }
