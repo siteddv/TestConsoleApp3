@@ -4,6 +4,16 @@ int productCount = GetProductCountFromConsole();
 List<Product> products = GetProductsInfo(productCount);
 PrintProductsInfo(products);
 
+Product product = new Product("Bread", 100);
+Product product2 = new Product
+    (
+    "Bread","121 222 232","Vkusniy hleb, чтоб не втыкали", 100, 10
+    );
+products.Add(product);
+products.Add(product2 );
+PrintProductsInfo (products);
+
+
 static void PrintProductsInfo(List<Product> products)
 {
     Console.WriteLine("Info about products:");
