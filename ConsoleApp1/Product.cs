@@ -6,11 +6,7 @@ public class Product
     {
         Console.WriteLine("STAIC COSNTRUCTOR");
     }
-
-    //вызывается 1 раз при обращении к класс
-    //нельзя сделать перегрузку
-    //нет входных параметров
-    //можно использовать в любых классах
+    
     public Product()
     {
 
