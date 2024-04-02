@@ -1,35 +1,19 @@
 ﻿using ConsoleApp1;
 
-List<Product> products = new List<Product>();
-Product product1 = new Product
-{
-    Name = "Product1", 
-    Price = 100, 
-    Articul = "Articul1", 
-    Description = "Description1"
-};
-products.Add(product1);
-products.Add(new Product 
-    { 
-        Name = "Product2", 
-        Price = 200, 
-        Articul = "Articul2", 
-        Description = "Description2" 
-    }
-);
-products.Add(new Product { Name = "Product3", Price = 300, Articul = "Articul3", Description = "Description3" });
+int productCount = GetProductCountFromConsole();
+List<Product> products = GetProductsInfo(productCount);
 PrintProductsInfo(products);
 
-Client client = new Client("Client1", 1000, "Doublesexual");
-Console.WriteLine("What products do you want to buy?");
-int productIndex = int.Parse(Console.ReadLine());
-Product selectedProduct = products[productIndex - 1];
-client.BuyProduct(selectedProduct);
+Product product = new Product("Bread", 100);
+Product product2 = new Product
+(
+    "Bread","121 222 232","Vkusniy hleb, чтоб не втыкали", 100, 10
+);
+products.Add(product);
+products.Add(product2 );
+PrintProductsInfo (products);
 
-// int productCount = GetProductCountFromConsole();
-// List<Product> products = GetProductsInfo(productCount);
-// PrintProductsInfo(products);
-//
+
 static void PrintProductsInfo(List<Product> products)
 {
     Console.WriteLine("Info about products:");
@@ -41,26 +25,26 @@ static void PrintProductsInfo(List<Product> products)
         i++;
     }
 }
-//
-// static List<Product> GetProductsInfo(int productCount)
-// {
-//     List<Product> products = new List<Product>();
-//     for (int i = 1; i <= productCount; i++)
-//     {
-//         Console.WriteLine($"Enter info about product {i}");
-//         Product product = GetProductFromConsole();
-//         products.Add(product);
-//     }
-//
-//     return products;
-// }
-//
-// static int GetProductCountFromConsole()
-// {
-//     Console.WriteLine("Enter number of products that you want to add");
-//     return int.Parse(Console.ReadLine());
-// }
-//
+
+static List<Product> GetProductsInfo(int productCount)
+{
+    List<Product> products = new List<Product>();
+    for (int i = 0; i < productCount; i++)
+    {
+        Console.WriteLine($"Enter info about product {i + 1}");
+        Product product = GetProductFromConsole();
+        products.Add(product);
+    }
+
+    return products;
+}
+
+static int GetProductCountFromConsole()
+{
+    Console.WriteLine("Enter number of products that you want to add");
+    return int.Parse(Console.ReadLine());
+}
+
 static void PrintProduct(Product product)
 {
     Console.WriteLine(product.Name);
@@ -69,22 +53,22 @@ static void PrintProduct(Product product)
     Console.WriteLine(product.Description);
     Console.WriteLine();
 }
-//
-// static Product GetProductFromConsole()
-// {
-//     Product product = new Product();
-//
-//     Console.Write("Enter product name: ");
-//     product.Name = Console.ReadLine();
-//
-//     Console.Write("Enter product price: ");
-//     product.Price = decimal.Parse(Console.ReadLine());
-//
-//     Console.Write("Enter product articul: ");
-//     product.Articul = Console.ReadLine();
-//
-//     Console.Write("Enter product description: ");
-//     product.Description = Console.ReadLine();
-//
-//     return product;
-// }
+
+static Product GetProductFromConsole()
+{
+    Product product = new Product();
+
+    Console.Write("Enter product name: ");
+    product.Name = Console.ReadLine();
+
+    Console.Write("Enter product price: ");
+    product.Price = decimal.Parse(Console.ReadLine());
+
+    Console.Write("Enter product articul: ");
+    product.Articul = Console.ReadLine();
+
+    Console.Write("Enter product description: ");
+    product.Description = Console.ReadLine();
+
+    return product;
+}
