@@ -18,17 +18,24 @@ public class ClientController
 
     public void Save()
     {
-        string[] filePaths = Directory.GetFiles("entities/clients/");
-        
-        string path = "entities/clients/client.txt";
-        using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+        string maxIdPath = "entities/clients/max.txt";
+        int maxId = 0;
+
+        using (StreamReader sr = new StreamReader(maxIdPath))
         {
-            using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Default))
-            {
-                sw.WriteLine(_client.Name);
-                sw.WriteLine(_client.CashAmount);
-                sw.WriteLine(_client.Gender);
-            }
+            maxId = int.Parse(sr.ReadLine());
+        }
+        
+        using (StreamWriter sw = new StreamWriter($"entities/clients/client{maxId + 1}.txt"))
+        {
+            sw.WriteLine($"{_client.Name}");
+            sw.WriteLine($"{_client.CashAmount}");
+            sw.WriteLine($"{_client.Gender}");
+        }
+        
+        using (StreamWriter sw = new StreamWriter(maxIdPath))
+        {
+            sw.WriteLine($"{maxId + 1}");
         }
     }
 }
