@@ -2,23 +2,9 @@ namespace ConsoleApp1.Controller;
 
 public class ClientController
 {
-    private readonly Client _client;
-
-    public ClientController(Client client)
+    public void Save(Client client)
     {
-        _client = client;
-    }
-
-    public void BuyProduct(Product product)
-    {
-        _client.BoughtProducts.Add(product);
-        _client.CashAmount -= product.Price;
-        Console.WriteLine("You bought a product!");
-    }
-
-    public void Save()
-    {
-        string maxIdPath = "entities/clients/max.txt";
+        string maxIdPath = "entities/clients/max/max.txt";
         int maxId = 0;
 
         using (StreamReader sr = new StreamReader(maxIdPath))
@@ -28,14 +14,35 @@ public class ClientController
         
         using (StreamWriter sw = new StreamWriter($"entities/clients/client{maxId + 1}.txt"))
         {
-            sw.WriteLine($"{_client.Name}");
-            sw.WriteLine($"{_client.CashAmount}");
-            sw.WriteLine($"{_client.Gender}");
+            sw.WriteLine($"{client.Name}");
+            sw.WriteLine($"{client.CashAmount}");
+            sw.WriteLine($"{client.Gender}");
         }
         
         using (StreamWriter sw = new StreamWriter(maxIdPath))
         {
             sw.WriteLine($"{maxId + 1}");
         }
+    }
+
+    public List<Client> GetAll()
+    {
+        List<Client> allClients = new List<Client>();
+
+        string clientsPath = "entities/clients/";
+
+        string[] filePaths = Directory.GetFiles(clientsPath);
+        
+        foreach (string file in filePaths)
+        {
+            using StreamReader sr = new StreamReader(file);
+            string name = sr.ReadLine();
+            decimal cashAmount = decimal.Parse(sr.ReadLine());
+            string gender = sr.ReadLine();
+            Client client = new Client(name, cashAmount, gender);
+            allClients.Add(client);
+        }
+        
+        return allClients;
     }
 }
