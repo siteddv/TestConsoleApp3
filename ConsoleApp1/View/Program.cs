@@ -1,24 +1,14 @@
-﻿// using ConsoleApp1;
-// using ConsoleApp1.Controller;
-//
-// while (true)
-// {
-//     Console.WriteLine("enter name");
-//     string name = Console.ReadLine();
-//     Console.WriteLine("enter cash amount");
-//     decimal cashAmount = decimal.Parse(Console.ReadLine());
-//     Console.WriteLine("Enter gender");
-//     string gender = Console.ReadLine();
-//     Client client = new Client(name, cashAmount, gender);
-//     ClientController vasyaController = new ClientController(client);
-//     vasyaController.Save();
-//     Console.WriteLine("Client saved!");
-//     List<Client> allClients = vasyaController.GetAll();
-// }
-//
+﻿using ConsoleApp1.Controller;
 
-using ConsoleApp1;
-using ConsoleApp1.Controller;
-
-ClientController clientController = new ClientController();
-List<Client> allClients = clientController.GetAll();
+string enterChoice = InputHelper
+    .GetValueFromConsole($"Салам, братишка! Я тут вижу ты зашел в мой магазинчик, хочешь что-то купить? ({Choice.Accept}/{Choice.Decline})",
+        Choice.Accept, Choice.Decline);
+    
+if(enterChoice.Equals(Choice.Accept, StringComparison.CurrentCultureIgnoreCase))
+{
+    Console.WriteLine("Отлично! Давай начнем!");
+}
+else
+{
+    Console.WriteLine("Ну и ладно, заходи еще!");
+}

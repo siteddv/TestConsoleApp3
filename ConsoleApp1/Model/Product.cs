@@ -2,11 +2,6 @@ namespace ConsoleApp1;
 
 public class Product
 {
-    static Product()
-    {
-        Console.WriteLine("STAIC COSNTRUCTOR");
-    }
-    
     public Product()
     {
 
@@ -31,5 +26,14 @@ public class Product
 
     public decimal Price;
     private decimal OptPrice = 25;
+
+    public override string ToString()
+    {
+        return "Name: " + Name + "\n" +
+               "Articul: " + Articul + "\n" +
+               "Description: " + Description + "\n" +
+               "Price: " + Price + "\n" +
+               "OptPrice: " + OptPrice + "\n";
+    }
 }
 

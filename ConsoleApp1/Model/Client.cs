@@ -14,11 +14,11 @@ public class Client
     public decimal CashAmount;
     public string Gender;
     public List<Product> BoughtProducts;
-    
-    public void BuyProduct(Product product)
+
+    public override string ToString()
     {
-        BoughtProducts.Add(product);
-        CashAmount -= product.Price;
-        Console.WriteLine("You bought a product!");
+        return $"{nameof(Name)}: {Name}\n" +
+               $"{nameof(CashAmount)}: {CashAmount}\n" +
+               $"{nameof(Gender)}: {Gender}\n";
     }
 }
