@@ -1,4 +1,5 @@
-﻿using ConsoleApp1.Controller;
+﻿using ConsoleApp1;
+using ConsoleApp1.Controller;
 
 string enterChoice = InputHelper
     .GetValueFromConsole($"Салам, братишка! Я тут вижу ты зашел в мой магазинчик, хочешь что-то купить? ({Choice.Accept}/{Choice.Decline})",
@@ -7,8 +8,10 @@ string enterChoice = InputHelper
 if(enterChoice.Equals(Choice.Accept, StringComparison.CurrentCultureIgnoreCase))
 {
     Console.WriteLine("Отлично! Давай начнем!");
+    Menu menu = new Menu();
+    menu.ShowMenu();
 }
 else
 {
-    Console.WriteLine("Ну и ладно, заходи еще!");
+    Console.WriteLine("Пидора ответ. Пошел нахуй!");
 }
