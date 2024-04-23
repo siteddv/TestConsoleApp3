@@ -43,6 +43,7 @@ public class Menu
         List<string> possibleChoices = products
             .Select(p => p.Articul)
             .ToList();
+        
         possibleChoices.Add("0");
         possibleChoices.Sort();
         
@@ -50,7 +51,19 @@ public class Menu
             InputHelper.GetValueFromConsole(
                 "Введите артикул товара, который хотите купить или введите 0, чтобы вернуться в меню", possibleChoices.ToArray());
 
-        Console.ReadKey();
+        if (choice.Equals("0"))
+        {
+            ShowMenu();
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("ты купил товар");
+            Product product = products.First(p => p.Articul.Equals(choice));
+            Console.WriteLine(product);
+            Thread.Sleep(3000);
+            ShowProducts();
+        }
     }
 
     private void HandleIncorrectPoint()
