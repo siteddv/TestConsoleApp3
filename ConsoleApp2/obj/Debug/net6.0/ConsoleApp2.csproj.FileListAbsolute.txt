@@ -1,5 +1,0 @@
-C:\Users\ayuba\Source\Repos\TestConsoleApp3\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.csproj.AssemblyReference.cache
-C:\Users\ayuba\Source\Repos\TestConsoleApp3\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\ayuba\Source\Repos\TestConsoleApp3\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.AssemblyInfoInputs.cache
-C:\Users\ayuba\Source\Repos\TestConsoleApp3\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.AssemblyInfo.cs
-C:\Users\ayuba\Source\Repos\TestConsoleApp3\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.csproj.CoreCompileInputs.cache
