@@ -10,8 +10,9 @@ public class Menu
         Console.WriteLine("Меню:");
         Console.WriteLine("1. Показать товары");
         Console.WriteLine("2. Показать купленные товары");
-        Console.WriteLine("3. Выйти из магазина");
-        
+        Console.WriteLine("3. Показать тестовую базу данных с героями");
+        Console.WriteLine("4. Выйти из магазина");
+
         string choice = Console.ReadLine();
         switch (choice)
         {
@@ -21,12 +22,22 @@ public class Menu
             case "2":
                 break;
             case "3":
+                GetDbInfo();
+                break;
+            case "4":
                 Exit();
                 break;
             default:
                 HandleIncorrectPoint();
                 break;
         }
+    }
+
+
+    private void GetDbInfo()
+    {
+        PostgresController postgresController = new PostgresController();
+        postgresController.GetDbInfo();
     }
 
     private void ShowProducts()
@@ -74,7 +85,7 @@ public class Menu
     
     private void Exit()
     {
-        ShowMessage("Спасибо за покупку! Пошел нахуй!");
+        ShowMessage("Спасибо за покупку! всего хорошего.");
         Environment.Exit(0);
     }
 
