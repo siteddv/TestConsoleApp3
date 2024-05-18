@@ -6,11 +6,7 @@ public class Product
     {
 
     }
-    public Product(string name, decimal price) 
-    {
-        Name = name;
-        Price = price;
-    }
+    
     public Product(string articul, string name, string description, decimal price)
     {
         Name = name;
@@ -18,7 +14,14 @@ public class Product
         Description = description;
         Price = price;
     }
+    
+    public Product(long id, string articul, string name, string description, decimal price) 
+        : this(articul, name, description, price)
+    {
+        Id = id;
+    }
 
+    public long Id { get; set; }
     public string Name;
     public string Articul;
     public string Description;
@@ -26,7 +29,8 @@ public class Product
 
     public override string ToString()
     {
-        return "Name: " + Name + "\n" +
+        return "Id: " + Id + "\n" +
+               "Name: " + Name + "\n" +
                "Articul: " + Articul + "\n" +
                "Description: " + Description + "\n" +
                "Price: " + Price;

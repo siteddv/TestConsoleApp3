@@ -10,7 +10,7 @@ public class Menu
         Console.WriteLine("Меню:");
         Console.WriteLine("1. Показать товары");
         Console.WriteLine("2. Показать купленные товары");
-        Console.WriteLine("3. Показать тестовую базу данных с героями");
+        Console.WriteLine("3. Добавить товары");
         Console.WriteLine("4. Выйти из магазина");
 
         string choice = Console.ReadLine();
@@ -22,7 +22,7 @@ public class Menu
             case "2":
                 break;
             case "3":
-                GetDbInfo();
+                InsertProducts();
                 break;
             case "4":
                 Exit();
@@ -31,6 +31,40 @@ public class Menu
                 HandleIncorrectPoint();
                 break;
         }
+    }
+    
+    private void InsertProducts()
+    {
+        List<Product> products = GetProductsFromConsole();
+        ProductController productController = new ProductController();
+        productController.InsertDb(products);
+    }
+
+    private List<Product> GetProductsFromConsole()
+    {
+        List<Product> products = new List<Product>();
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Введите артикул товара");
+            string articul = Console.ReadLine();
+            Console.WriteLine("Введите название товара");
+            string name = Console.ReadLine();
+            Console.WriteLine("Введите описание товара");
+            string description = Console.ReadLine();
+            Console.WriteLine("Введите цену товара");
+            decimal price = decimal.Parse(Console.ReadLine());
+            Product product = new Product(articul, name, description, price);
+            products.Add(product);
+            Console.WriteLine("Добавить еще один товар? (да/нет)");
+            string choice = Console.ReadLine();
+            if (choice.Equals("нет"))
+            {
+                break;
+            }
+        }
+
+        return products;
     }
 
 
@@ -42,7 +76,6 @@ public class Menu
 
     private void ShowProducts()
     {
-        Console.Clear();
         ProductController productController = new ProductController();
         List<Product> products = productController.GetAll();
         foreach (Product product in products)
@@ -50,31 +83,9 @@ public class Menu
             Console.WriteLine(product);
             Console.WriteLine();
         }
-
-        List<string> possibleChoices = products
-            .Select(p => p.Articul)
-            .ToList();
-        
-        possibleChoices.Add("0");
-        possibleChoices.Sort();
-        
-        string choice =
-            InputHelper.GetValueFromConsole(
-                "Введите артикул товара, который хотите купить или введите 0, чтобы вернуться в меню", possibleChoices.ToArray());
-
-        if (choice.Equals("0"))
-        {
-            ShowMenu();
-        }
-        else
-        {
-            Console.Clear();
-            Console.WriteLine("ты купил товар");
-            Product product = products.First(p => p.Articul.Equals(choice));
-            Console.WriteLine(product);
-            Thread.Sleep(3000);
-            ShowProducts();
-        }
+        Console.WriteLine("Нажмите любую клавишу для продолжения...");
+        Console.ReadKey();
+        ShowMenu();
     }
 
     private void HandleIncorrectPoint()
