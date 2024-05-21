@@ -88,11 +88,16 @@ public class ProductController
             {
                 while (reader.Read())
                 {
-                    long id = reader.GetInt64(reader.GetOrdinal("id"));
-                    string articul = reader.GetString(reader.GetOrdinal("article_number"));
-                    string name = reader.GetString(reader.GetOrdinal("name"));
-                    string description = reader.GetString(reader.GetOrdinal("description"));
-                    decimal price = reader.GetDecimal(reader.GetOrdinal("price"));
+                    int idColumnNumber = reader.GetOrdinal("id");
+                    long id = reader.GetInt64(idColumnNumber);
+                    int articulColumnNumber = reader.GetOrdinal("article_number");
+                    string articul = reader.GetString(articulColumnNumber);
+                    int nameColumnNumber = reader.GetOrdinal("name");
+                    string name = reader.GetString(nameColumnNumber);
+                    int descriptionColumnNumber = reader.GetOrdinal("description");
+                    string description = reader.GetString(descriptionColumnNumber);
+                    int priceColumnNumber = reader.GetOrdinal("price");
+                    decimal price = reader.GetDecimal(priceColumnNumber);
                     Product product = new Product(id, articul, name, description, price);
                     allProducts.Add(product);
                 }

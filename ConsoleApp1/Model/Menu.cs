@@ -11,7 +11,8 @@ public class Menu
         Console.WriteLine("1. Показать товары");
         Console.WriteLine("2. Показать купленные товары");
         Console.WriteLine("3. Добавить товары");
-        Console.WriteLine("4. Выйти из магазина");
+        Console.WriteLine("4. Купить товары");
+        Console.WriteLine("5. Выйти из магазина");
 
         string choice = Console.ReadLine();
         switch (choice)
@@ -25,6 +26,9 @@ public class Menu
                 InsertProducts();
                 break;
             case "4":
+                BuyProducts();
+                break;
+            case "5":
                 Exit();
                 break;
             default:
@@ -32,7 +36,12 @@ public class Menu
                 break;
         }
     }
-    
+
+    private void BuyProducts()
+    {
+        
+    }
+
     private void InsertProducts()
     {
         List<Product> products = GetProductsFromConsole();
