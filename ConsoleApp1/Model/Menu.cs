@@ -1,4 +1,5 @@
 using ConsoleApp1.Controller;
+using ConsoleApp1.Helper;
 
 namespace ConsoleApp1;
 
@@ -26,7 +27,7 @@ public class Menu
                 InsertProducts();
                 break;
             case "4":
-                BuyProducts();
+                BuyProduct();
                 break;
             case "5":
                 Exit();
@@ -37,9 +38,18 @@ public class Menu
         }
     }
 
-    private void BuyProducts()
+    private void BuyProduct()
     {
-        
+        PrintProducts();
+        Console.WriteLine("Введите id товара, который хотите купить");
+        int productId = int.Parse(Console.ReadLine());
+        Console.WriteLine("Введите количество товара");
+        int count = int.Parse(Console.ReadLine());
+        Console.WriteLine("Введите id клиента");
+        Console.WriteLine(1);
+        ClientController clientController = new ClientController();
+        clientController.BuyProduct(productId, count, DefaultConfiguration.DefaultUserId);
+        Console.WriteLine("Товар успешно куплен!");
     }
 
     private void InsertProducts()
@@ -76,7 +86,6 @@ public class Menu
         return products;
     }
 
-
     private void GetDbInfo()
     {
         PostgresController postgresController = new PostgresController();
@@ -85,6 +94,14 @@ public class Menu
 
     private void ShowProducts()
     {
+        PrintProducts();
+        Console.WriteLine("Нажмите любую клавишу для продолжения...");
+        Console.ReadKey();
+        ShowMenu();
+    }
+    
+    private void PrintProducts()
+    {
         ProductController productController = new ProductController();
         List<Product> products = productController.GetAll();
         foreach (Product product in products)
@@ -92,9 +109,6 @@ public class Menu
             Console.WriteLine(product);
             Console.WriteLine();
         }
-        Console.WriteLine("Нажмите любую клавишу для продолжения...");
-        Console.ReadKey();
-        ShowMenu();
     }
 
     private void HandleIncorrectPoint()

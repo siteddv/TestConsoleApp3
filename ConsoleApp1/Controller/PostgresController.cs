@@ -11,6 +11,7 @@ namespace ConsoleApp1.Controller
        private const string NameColumn = "hero_name";
        private const string AlignColumn = "align";
        private const string UniverseColumn = "universe";
+       
         public void GetDbInfo()
         {
             using DbConnection connection = new NpgsqlConnection(ConnectionString);
