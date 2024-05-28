@@ -22,6 +22,7 @@ public class Menu
                 ShowProducts();
                 break;
             case "2":
+                ShowBoughtProducts();
                 break;
             case "3":
                 InsertProducts();
@@ -36,6 +37,21 @@ public class Menu
                 HandleIncorrectPoint();
                 break;
         }
+    }
+
+    private void ShowBoughtProducts()
+    {
+        ClientController clientController = new ClientController();
+        var (products, counts) = clientController.GetBoughtProducts(DefaultConfiguration.DefaultUserId);
+        for(int i=0; i<products.Count; i++)
+        {
+            Console.WriteLine(products[i]);
+            Console.WriteLine($"Количество: {counts[i]}");
+            Console.WriteLine();
+        }
+        Console.WriteLine("Нажмите любую клавишу для продолжения...");
+        Console.ReadKey();
+        ShowMenu();
     }
 
     private void BuyProduct()

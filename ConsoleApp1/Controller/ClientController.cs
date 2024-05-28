@@ -76,4 +76,35 @@ public class ClientController
         
         transaction.Commit();
     }
+
+    public (List<Product>, List<int>) GetBoughtProducts(int defaultUserId)
+    {
+        List<Product> products = new List<Product>();
+        List<int> counts = new List<int>();
+        using DbConnection connection = new NpgsqlConnection(PostgresController.ConnectionString);
+        connection.Open();
+        string query = "SELECT p.id, p.article_number, p.name, p.description, p.price, SUM(cp.amount) as amount " +
+                       "FROM product p " +
+                       "left JOIN client_products cp ON p.id = cp.product_id " +
+                       "WHERE cp.client_id = @client_id " +
+                       "group by p.article_number, p.id, p.article_number, p.name, p.description, p.price";
+        using DbCommand command = connection.CreateCommand();
+        command.CommandText = query;
+        command.Parameters.Add(new NpgsqlParameter("@client_id", defaultUserId));
+        using DbDataReader reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            long id = reader.GetInt64(reader.GetOrdinal("id"));
+            string articul = reader.GetString(reader.GetOrdinal("article_number"));
+            string name = reader.GetString(reader.GetOrdinal("name"));
+            string description = reader.GetString(reader.GetOrdinal("description"));
+            decimal price = reader.GetDecimal(reader.GetOrdinal("price"));
+            int amount = reader.GetInt32(reader.GetOrdinal("amount"));
+            counts.Add(amount);
+            Product product = new Product(id, articul, name, description, price);
+            products.Add(product);
+        }
+
+        return (products, counts);
+    }
 }
