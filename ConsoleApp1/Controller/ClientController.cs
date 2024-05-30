@@ -83,11 +83,29 @@ public class ClientController
         List<int> counts = new List<int>();
         using DbConnection connection = new NpgsqlConnection(PostgresController.ConnectionString);
         connection.Open();
-        string query = "SELECT p.id, p.article_number, p.name, p.description, p.price, SUM(cp.amount) as amount " +
-                       "FROM product p " +
-                       "left JOIN client_products cp ON p.id = cp.product_id " +
-                       "WHERE cp.client_id = @client_id " +
-                       "group by p.article_number, p.id, p.article_number, p.name, p.description, p.price";
+        string query = """
+                        SELECT
+                            p.id,
+                            p.article_number,
+                            p.name,
+                            p.description,
+                            p.price,
+                            SUM(cp.amount) as amount
+                        FROM 
+                            product p
+                        LEFT JOIN
+                            client_products cp
+                       ON
+                            p.id = cp.product_id
+                        WHERE
+                            cp.client_id = @client_id
+                        GROUP BY
+                            p.id,
+                            p.article_number,
+                            p.name,
+                            p.description,
+                            p.price
+                       """;
         using DbCommand command = connection.CreateCommand();
         command.CommandText = query;
         command.Parameters.Add(new NpgsqlParameter("@client_id", defaultUserId));
