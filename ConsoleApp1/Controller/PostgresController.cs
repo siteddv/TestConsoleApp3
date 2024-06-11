@@ -5,8 +5,8 @@ namespace ConsoleApp1.Controller
 {
     public class PostgresController
     {
-       public const string ConnectionString = "User ID=admin; Password=admin;" +
-       "Host=localHost; Port=5432; Database=learn; Pooling=True;";
+       public const string ConnectionString = "User ID=postgres; Password=sa;" +
+       "Host=localHost; Port=5432; Database=postgres; Pooling=True;";
        
        private const string NameColumn = "hero_name";
        private const string AlignColumn = "align";

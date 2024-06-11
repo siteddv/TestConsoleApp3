@@ -56,16 +56,21 @@ public class Menu
 
     private void BuyProduct()
     {
-        PrintProducts();
-        Console.WriteLine("Введите id товара, который хотите купить");
-        int productId = int.Parse(Console.ReadLine());
-        Console.WriteLine("Введите количество товара");
-        int count = int.Parse(Console.ReadLine());
-        Console.WriteLine("Введите id клиента");
-        Console.WriteLine(1);
-        ClientController clientController = new ClientController();
-        clientController.BuyProduct(productId, count, DefaultConfiguration.DefaultUserId);
-        Console.WriteLine("Товар успешно куплен!");
+        ProductController productController = new ProductController();
+        List<Product> products = productController.GetAll();
+        Console.WriteLine("Список продуктов");
+        foreach (Product product in products)
+        {
+            Console.WriteLine(product);
+            Console.WriteLine();
+        }
+
+        var idCollection = products.Select(p => p.Id.ToString()).ToArray();
+
+        Console.WriteLine("Введите id продуктов через enter. чтобы выйти из покупки введите \"выход\"");
+        
+        string productIdToBuy = InputHelper.GetValueFromConsole("Введите нужный товар", idCollection);
+        
     }
 
     private void InsertProducts()
@@ -73,6 +78,7 @@ public class Menu
         List<Product> products = GetProductsFromConsole();
         ProductController productController = new ProductController();
         productController.InsertDb(products);
+        ShowMenu();
     }
 
     private List<Product> GetProductsFromConsole()
