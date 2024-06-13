@@ -1,4 +1,4 @@
-namespace ConsoleApp1.Helper;
+namespace SlaveryMarket.BL.Config;
 
 public static class DefaultConfiguration
 {

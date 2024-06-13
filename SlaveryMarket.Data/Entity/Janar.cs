@@ -1,4 +1,4 @@
-namespace ConsoleApp1;
+namespace SlaveryMarket.Data.Model;
 
 public class Janar
 {

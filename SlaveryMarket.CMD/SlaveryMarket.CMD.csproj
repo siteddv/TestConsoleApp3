@@ -5,16 +5,10 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Npgsql" Version="8.0.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Helper\" />
-      <Folder Include="View\" />
+      <ProjectReference Include="..\SlaveryMarket.BL\SlaveryMarket.BL.csproj" />
     </ItemGroup>
 
 </Project>

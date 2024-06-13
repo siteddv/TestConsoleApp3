@@ -1,5 +1,6 @@
-﻿using ConsoleApp1;
-using ConsoleApp1.Controller;
+﻿using SlaveryMarket.BL.Controller;
+using SlaveryMarket.BL.Model;
+using SlaveryMarket.CMD;
 
 string enterChoice = InputHelper
     .GetValueFromConsole($"Салам, братишка! Я тут вижу ты зашел в мой магазинчик, хочешь что-то купить? ({Choice.Accept}/{Choice.Decline})",

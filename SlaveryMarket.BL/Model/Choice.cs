@@ -1,4 +1,4 @@
-namespace ConsoleApp1.Controller;
+namespace SlaveryMarket.BL.Model;
 
 public class Choice
 {

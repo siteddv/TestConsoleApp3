@@ -1,7 +1,9 @@
-using ConsoleApp1.Controller;
-using ConsoleApp1.Helper;
+using SlaveryMarket.BL;
+using SlaveryMarket.BL.Config;
+using SlaveryMarket.BL.Controller;
+using SlaveryMarket.Data.Model;
 
-namespace ConsoleApp1;
+namespace SlaveryMarket.CMD;
 
 public class Menu
 {
