@@ -1,10 +1,17 @@
 using System.Data.Common;
 using SlaveryMarket.Data.Model;
+using SlaveryMarket.Data.Repository;
 
 namespace SlaveryMarket.BL.Controller;
 
 public class ProductController
 {
+    private readonly ProductRepository _productRepository;
+    public ProductController()
+    {
+        _productRepository = new ProductRepository();
+    }
+    
     public List<Product> GetAllTxt()
     {
         List<Product> allProducts = new List<Product>();
@@ -58,54 +65,16 @@ public class ProductController
     
     public void InsertDb(List<Product> products)
     {
-        // using DbConnection connection = new NpgsqlConnection(PostgresController.ConnectionString);
-        // connection.Open();
-        //
-        // foreach (Product product in products)
-        // {
-        //     string query = $"INSERT INTO product (article_number, name, description, price)" +
-        //                    $"VALUES ('{product.Articul}', '{product.Name}', '{product.Description}', {product.Price})";
-        //     using (DbCommand command = connection.CreateCommand())
-        //     {
-        //         command.CommandText = query;
-        //         command.ExecuteNonQuery();
-        //     }
-        // }
+        
+    }
+
+    public void InsertMany(List<Product> products)
+    {
+        _productRepository.InsertMany(products);
     }
 
     public List<Product> GetAll()
     {
-        // List<Product> allProducts = new List<Product>();
-        //
-        // using DbConnection connection = new NpgsqlConnection(PostgresController.ConnectionString);
-        // connection.Open();
-        //
-        // string query = "SELECT id, article_number, name, description, price FROM product";
-        // using (DbCommand command = connection.CreateCommand())
-        // {
-        //     command.CommandText = query;
-        //     using (DbDataReader reader = command.ExecuteReader())
-        //     {
-        //         while (reader.Read())
-        //         {
-        //             int idColumnNumber = reader.GetOrdinal("id");
-        //             long id = reader.GetInt64(idColumnNumber);
-        //             int articulColumnNumber = reader.GetOrdinal("article_number");
-        //             string articul = reader.GetString(articulColumnNumber);
-        //             int nameColumnNumber = reader.GetOrdinal("name");
-        //             string name = reader.GetString(nameColumnNumber);
-        //             int descriptionColumnNumber = reader.GetOrdinal("description");
-        //             string description = reader.GetString(descriptionColumnNumber);
-        //             int priceColumnNumber = reader.GetOrdinal("price");
-        //             decimal price = reader.GetDecimal(priceColumnNumber);
-        //             Product product = new Product(id, articul, name, description, price);
-        //             allProducts.Add(product);
-        //         }
-        //     }
-        // }
-        //
-        // return allProducts;
-
-        return default;
+        return _productRepository.GetAll();
     }
 }

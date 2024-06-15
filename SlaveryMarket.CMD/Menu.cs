@@ -1,7 +1,8 @@
 using SlaveryMarket.BL;
-using SlaveryMarket.BL.Config;
 using SlaveryMarket.BL.Controller;
+using SlaveryMarket.Data;
 using SlaveryMarket.Data.Model;
+using SlaveryMarket.Data.Repository;
 
 namespace SlaveryMarket.CMD;
 
@@ -79,7 +80,7 @@ public class Menu
     {
         List<Product> products = GetProductsFromConsole();
         ProductController productController = new ProductController();
-        productController.InsertDb(products);
+        productController.InsertMany(products);
         ShowMenu();
     }
 
