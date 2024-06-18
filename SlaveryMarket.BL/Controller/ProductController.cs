@@ -1,4 +1,5 @@
 using System.Data.Common;
+using SlaveryMarket.Data.Dto;
 using SlaveryMarket.Data.Model;
 using SlaveryMarket.Data.Repository;
 
@@ -77,4 +78,12 @@ public class ProductController
     {
         return _productRepository.GetAll();
     }
+    
+    public List<ProductDto> GetAllDto()
+    {
+        return _productRepository
+            .GetAll()
+            .Select(product => product.ToDto())
+            .ToList();
+    } 
 }

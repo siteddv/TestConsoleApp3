@@ -1,3 +1,5 @@
+using SlaveryMarket.Data.Dto;
+
 namespace SlaveryMarket.Data.Model;
 
 public class Product
@@ -26,6 +28,11 @@ public class Product
     public string Articul;
     public string Description;
     public decimal Price;
+    
+    public ProductDto ToDto()
+    {
+        return new ProductDto(Id, Name, Price);
+    }
 
     public override string ToString()
     {

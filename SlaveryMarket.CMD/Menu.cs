@@ -1,6 +1,7 @@
 using SlaveryMarket.BL;
 using SlaveryMarket.BL.Controller;
 using SlaveryMarket.Data;
+using SlaveryMarket.Data.Dto;
 using SlaveryMarket.Data.Model;
 using SlaveryMarket.Data.Repository;
 
@@ -60,20 +61,44 @@ public class Menu
     private void BuyProduct()
     {
         ProductController productController = new ProductController();
-        List<Product> products = productController.GetAll();
+        List<ProductDto> products = productController.GetAllDto();
         Console.WriteLine("Список продуктов");
-        foreach (Product product in products)
+        foreach (ProductDto product in products)
         {
             Console.WriteLine(product);
             Console.WriteLine();
         }
 
-        var idCollection = products.Select(p => p.Id.ToString()).ToArray();
+        var orderIntents = new List<OrderItemIntentDto>();
+        
+        var idCollection = products
+            .Select(p => p.Id.ToString())
+            .ToList();
+        
+        idCollection.Add("выход");
+        
+        while (true)
+        {
+            Console.WriteLine("Введите id продуктов через enter. чтобы выйти из покупки введите \"выход\"");
+            
+            string productIdToBuy = InputHelper.GetValueFromConsole("Введите нужный товар", idCollection.ToArray());
+            if (productIdToBuy.Equals("выход"))
+            {
+                break;
+            }
+            var productId = long.Parse(productIdToBuy);
+            Console.WriteLine("Введите количество товара");
+            float count = float.Parse(Console.ReadLine());
+            
+            var productPrice = products
+                .First(p => p.Id == productId)
+                .Price;
+            var orderItemDto = new OrderItemIntentDto(productId, productPrice, count);
+            orderIntents.Add(orderItemDto);
+        }
 
-        Console.WriteLine("Введите id продуктов через enter. чтобы выйти из покупки введите \"выход\"");
-        
-        string productIdToBuy = InputHelper.GetValueFromConsole("Введите нужный товар", idCollection);
-        
+        var orderIntentDto = new OrderIntentDto(DefaultConfiguration.DefaultUserId, orderIntents);
+        Console.WriteLine("Подтвердите покупку (да/нет)");
     }
 
     private void InsertProducts()
