@@ -85,5 +85,5 @@ public class ProductController
             .GetAll()
             .Select(product => product.ToDto())
             .ToList();
-    } 
+    }
 }

@@ -88,17 +88,16 @@ public class Menu
             }
             var productId = long.Parse(productIdToBuy);
             Console.WriteLine("Введите количество товара");
-            float count = float.Parse(Console.ReadLine());
+            float amount = float.Parse(Console.ReadLine());
             
             var productPrice = products
                 .First(p => p.Id == productId)
                 .Price;
-            var orderItemDto = new OrderItemIntentDto(productId, productPrice, count);
+            var orderItemDto = new OrderItemIntentDto(productId, productPrice, amount);
             orderIntents.Add(orderItemDto);
         }
 
         var orderIntentDto = new OrderIntentDto(DefaultConfiguration.DefaultUserId, orderIntents);
-        Console.WriteLine("Подтвердите покупку (да/нет)");
     }
 
     private void InsertProducts()
