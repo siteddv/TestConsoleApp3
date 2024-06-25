@@ -26,6 +26,7 @@ public class ProductRepository
         foreach (var product in products)
         {
             sb.Append($"('{product.Articul}', '{product.Name}', '{product.Description}', {product.Price}),");
+            // ('123', 'Janar', 'young and beautiful', 10),
         }
 
         sb.Remove(sb.Length - 1, 1);

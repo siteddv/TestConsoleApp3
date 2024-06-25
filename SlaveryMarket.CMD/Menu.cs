@@ -97,7 +97,7 @@ public class Menu
             orderIntents.Add(orderItemDto);
         }
 
-        var orderIntentDto = new OrderIntentDto(DefaultConfiguration.DefaultUserId, orderIntents);
+        // var orderIntentDto = new OrderIntentDto(DefaultConfiguration.DefaultUserId, orderIntents);
     }
 
     private void InsertProducts()
