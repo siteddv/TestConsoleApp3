@@ -1,5 +1,4 @@
-﻿using SlaveryMarket.BL.Controller;
-using SlaveryMarket.BL.Model;
+﻿using SlaveryMarket.BL.Model;
 using SlaveryMarket.CMD;
 
 string enterChoice = InputHelper

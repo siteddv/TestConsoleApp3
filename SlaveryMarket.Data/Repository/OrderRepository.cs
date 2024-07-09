@@ -25,6 +25,8 @@ public class OrderRepository
             moneyWithdrawingCommand.Parameters.Add(
                 new NpgsqlParameter("client_id", orderIntentDto.BuyerId));
 
+            moneyWithdrawingCommand.ExecuteNonQuery();
+
             using DbCommand orderInsertCommand = connection.CreateCommand();
             orderInsertCommand.CommandText = """
                                              INSERT INTO
@@ -37,17 +39,36 @@ public class OrderRepository
             orderInsertCommand.Parameters.Add(
                 new NpgsqlParameter("client_id", orderIntentDto.BuyerId));
             orderInsertCommand.Parameters.Add(
-                new NpgsqlParameter("order_status", OrderStatus.InProgress));
+                new NpgsqlParameter("order_status", (int)OrderStatus.InProgress));
             orderInsertCommand.Parameters.Add(
                 new NpgsqlParameter("total_price", orderIntentDto.TotalPrice));
             orderInsertCommand.Parameters.Add(
                 new NpgsqlParameter("create_date", DateTime.Now));
             
+            foreach (var orderItemIntentDto in orderIntentDto.OrderItems)
+            {
+                using DbCommand orderItemInsertCommand = connection.CreateCommand();
+                orderItemInsertCommand.CommandText = """
+                                                     INSERT INTO
+                                                        order_item
+                                                            (order_id, product_id, amount)
+                                                        VALUES
+                                                            (@order_id, @product_id, @amount)
+                                                     """;
+                orderItemInsertCommand.Parameters.Add(
+                    new NpgsqlParameter("order_id", orderInsertCommand.ExecuteScalar()));
+                orderItemInsertCommand.Parameters.Add(
+                    new NpgsqlParameter("product_id", orderItemIntentDto.ProductId));
+                orderItemInsertCommand.Parameters.Add(
+                    new NpgsqlParameter("amount", orderItemIntentDto.Amount));
+                
+                orderItemInsertCommand.ExecuteNonQuery();
+            }
             
+            transaction.Commit();
         }
         catch
         {
-            
             transaction.Rollback();
         }
     }
