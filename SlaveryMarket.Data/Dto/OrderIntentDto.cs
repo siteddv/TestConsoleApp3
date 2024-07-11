@@ -1,6 +1,6 @@
 namespace SlaveryMarket.Data.Dto;
 
-public record OrderIntentDto
+public class OrderIntentDto
 {
     public OrderIntentDto(long buyerId, List<OrderItemIntentDto> orderItems)
     {
@@ -8,8 +8,8 @@ public record OrderIntentDto
         OrderItems = orderItems;
     }
 
-    public long BuyerId;
-    public List<OrderItemIntentDto> OrderItems;
+    public long BuyerId { get; set; }
+    public List<OrderItemIntentDto> OrderItems { get; set; }
     public decimal TotalPrice
         => OrderItems.Sum(x => x.Price * (decimal)x.Amount);
 }
