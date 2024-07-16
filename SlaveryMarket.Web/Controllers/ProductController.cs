@@ -7,7 +7,7 @@ namespace SlaveryMarket.Web.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ProductController
+public class ProductController : ControllerBase
 {
     private readonly ProductRepository _productRepository;
     private readonly OrderRepository _orderRepository;
@@ -22,12 +22,13 @@ public class ProductController
     [Route("get-all")]
     public List<Product> GetAll()
     {
+        Console.WriteLine(_productRepository.Sanjar);
         return _productRepository.GetAll();
     }
     
     [HttpPost]
     [Route("buy-product")]
-    public void BuyProduct([FromBody]OrderIntentDto orderIntentDto)
+    public void BuyProduct([FromBody] OrderIntentDto orderIntentDto)
     {
         _orderRepository.BuyProduct(orderIntentDto);
     }

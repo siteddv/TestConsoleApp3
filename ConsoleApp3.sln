@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlaveryMarket.BL", "Slavery
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlaveryMarket.Data", "SlaveryMarket.Data\SlaveryMarket.Data.csproj", "{8FCC6279-676D-4326-B358-E7E242AF0F29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlaveryMarket.CMD", "SlaveryMarket.CMD\SlaveryMarket.CMD.csproj", "{9697B108-04ED-41B4-A1EF-99E53031359A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlaveryMarket.Web", "SlaveryMarket.Web\SlaveryMarket.Web.csproj", "{19B602E4-0F74-4EC8-A875-9A95FC53ED15}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{8FCC6279-676D-4326-B358-E7E242AF0F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FCC6279-676D-4326-B358-E7E242AF0F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FCC6279-676D-4326-B358-E7E242AF0F29}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9697B108-04ED-41B4-A1EF-99E53031359A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9697B108-04ED-41B4-A1EF-99E53031359A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9697B108-04ED-41B4-A1EF-99E53031359A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9697B108-04ED-41B4-A1EF-99E53031359A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19B602E4-0F74-4EC8-A875-9A95FC53ED15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19B602E4-0F74-4EC8-A875-9A95FC53ED15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19B602E4-0F74-4EC8-A875-9A95FC53ED15}.Release|Any CPU.ActiveCfg = Release|Any CPU

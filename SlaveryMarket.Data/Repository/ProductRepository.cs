@@ -7,6 +7,21 @@ namespace SlaveryMarket.Data.Repository;
 
 public class ProductRepository
 {
+    public int Sanjar
+    {
+        get
+        {
+            _sanjar++;
+            return _sanjar;
+        }
+        set
+        {
+            _sanjar = value;
+        }
+    }
+
+    private int _sanjar = 9;
+    
     public void InsertMany(List<Product> products)
     {
         using DbConnection connection = new NpgsqlConnection(DefaultConfiguration.ConnectionString);
