@@ -1,24 +1,23 @@
-namespace SlaveryMarket.Data.Model;
+using System.Text.Json.Serialization;
+using SlaveryMarket.Data.Model;
+
+namespace SlaveryMarket.Data.Entity;
 
 public class Client
 {
-    public Client(string name, decimal cashAmount, string gender)
+    public Client(string name, decimal cashAmount, string phone)
     {
         Name = name;
         CashAmount = cashAmount;
-        Gender = gender;
+        Phone = phone;
         BoughtProducts = new List<Product>();
     }
     
-    public string Name;
-    public decimal CashAmount;
-    public string Gender;
-    public List<Product> BoughtProducts;
-
-    public override string ToString()
-    {
-        return $"{nameof(Name)}: {Name}\n" +
-               $"{nameof(CashAmount)}: {CashAmount}\n" +
-               $"{nameof(Gender)}: {Gender}\n";
-    }
+    public string Name { get; set; }
+    public decimal CashAmount { get; set; }
+    public string Phone { get; set; }
+    [JsonIgnore]
+    public List<Product> BoughtProducts { get; set; }
+    
+    public string Janar { get; set; } = "gay";
 }

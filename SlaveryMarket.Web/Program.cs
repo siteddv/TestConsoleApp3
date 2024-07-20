@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ProductRepository>();
 builder.Services.AddTransient<OrderRepository>();
+builder.Services.AddTransient<ClientRepository>();
 
 var app = builder.Build();
 // ---------------------------------------------------------

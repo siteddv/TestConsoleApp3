@@ -14,6 +14,18 @@ public class OrderRepository
         using DbTransaction transaction = connection.BeginTransaction();
         try
         {
+            decimal totalPrice = 0;
+            
+            foreach (var orderItemIntentDto in orderIntentDto.OrderItems)
+            {
+                using DbCommand productPriceCommand = connection.CreateCommand();
+                productPriceCommand.CommandText = 
+                    "SELECT price FROM product WHERE id = @product_id";
+                productPriceCommand.Parameters.Add(
+                    new NpgsqlParameter("product_id", orderItemIntentDto.ProductId));
+                totalPrice += (decimal)productPriceCommand.ExecuteScalar() * orderItemIntentDto.Amount;
+            }
+            
             using DbCommand moneyWithdrawingCommand = connection.CreateCommand();
             moneyWithdrawingCommand.CommandText = 
                 "UPDATE client" +
@@ -21,7 +33,7 @@ public class OrderRepository
                     " WHERE id = @client_id";
 
             moneyWithdrawingCommand.Parameters.Add(
-                new NpgsqlParameter("total_price", orderIntentDto.TotalPrice));
+                new NpgsqlParameter("total_price", totalPrice));
             moneyWithdrawingCommand.Parameters.Add(
                 new NpgsqlParameter("client_id", orderIntentDto.BuyerId));
 
@@ -41,9 +53,11 @@ public class OrderRepository
             orderInsertCommand.Parameters.Add(
                 new NpgsqlParameter("order_status", (int)OrderStatus.InProgress));
             orderInsertCommand.Parameters.Add(
-                new NpgsqlParameter("total_price", orderIntentDto.TotalPrice));
+                new NpgsqlParameter("total_price", totalPrice));
             orderInsertCommand.Parameters.Add(
                 new NpgsqlParameter("create_date", DateTime.Now));
+            
+            orderInsertCommand.ExecuteNonQuery();
             
             foreach (var orderItemIntentDto in orderIntentDto.OrderItems)
             {

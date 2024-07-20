@@ -12,6 +12,4 @@ public class OrderIntentDto
     
     public long BuyerId { get; set; }
     public List<OrderItemIntentDto> OrderItems { get; set; }
-    public decimal TotalPrice
-        => OrderItems.Sum(x => x.Price * (decimal)x.Amount);
 }
