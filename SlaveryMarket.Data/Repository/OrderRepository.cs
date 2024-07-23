@@ -40,14 +40,15 @@ public class OrderRepository
             moneyWithdrawingCommand.ExecuteNonQuery();
 
             using DbCommand orderInsertCommand = connection.CreateCommand();
-            orderInsertCommand.CommandText = """
-                                             INSERT INTO
-                                                order_info
-                                                    (buyer_id, order_status, total_price, create_date)
-                                                VALUES
-                                                    (@client_id, @order_status, @total_price, @create_date)
-                                             RETURNING id
-                                             """;
+            orderInsertCommand.CommandText = 
+                """
+                 INSERT INTO
+                    order_info
+                        (buyer_id, order_status, total_price, create_date)
+                    VALUES
+                        (@client_id, @order_status, @total_price, @create_date)
+                 RETURNING id
+                """;
             orderInsertCommand.Parameters.Add(
                 new NpgsqlParameter("client_id", orderIntentDto.BuyerId));
             orderInsertCommand.Parameters.Add(
@@ -57,20 +58,21 @@ public class OrderRepository
             orderInsertCommand.Parameters.Add(
                 new NpgsqlParameter("create_date", DateTime.Now));
             
-            orderInsertCommand.ExecuteNonQuery();
+            var orderId = (long)orderInsertCommand.ExecuteScalar();
             
             foreach (var orderItemIntentDto in orderIntentDto.OrderItems)
             {
                 using DbCommand orderItemInsertCommand = connection.CreateCommand();
-                orderItemInsertCommand.CommandText = """
-                                                     INSERT INTO
-                                                        order_item
-                                                            (order_id, product_id, amount)
-                                                        VALUES
-                                                            (@order_id, @product_id, @amount)
-                                                     """;
+                orderItemInsertCommand.CommandText = 
+                    """
+                     INSERT INTO
+                        order_item
+                            (order_id, product_id, amount)
+                        VALUES
+                            (@order_id, @product_id, @amount)
+                     """;
                 orderItemInsertCommand.Parameters.Add(
-                    new NpgsqlParameter("order_id", orderInsertCommand.ExecuteScalar()));
+                    new NpgsqlParameter("order_id", orderId));
                 orderItemInsertCommand.Parameters.Add(
                     new NpgsqlParameter("product_id", orderItemIntentDto.ProductId));
                 orderItemInsertCommand.Parameters.Add(

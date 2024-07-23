@@ -7,9 +7,7 @@ using SlaveryMarket.Web.Responses;
 
 namespace SlaveryMarket.Web.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class ProductController : ControllerBase
+public class ProductController : BaseController
 {
     private readonly ProductRepository _productRepository;
     private readonly OrderRepository _orderRepository;
@@ -28,8 +26,8 @@ public class ProductController : ControllerBase
     [Route("get-all")]
     public Response<List<Product>> GetAll()
     {
+        var a = GetId();
         var products =  _productRepository.GetAll();
-        // var products = new List<Product>();
         if (!products.Any())
         {
             return new Response<List<Product>>(null, "No products found", false);
