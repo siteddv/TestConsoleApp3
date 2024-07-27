@@ -19,5 +19,5 @@ public class Client
     [JsonIgnore]
     public List<Product> BoughtProducts { get; set; }
     
-    public string Janar { get; set; } = "gay";
+    public Janar Janar { get; set; } = new Janar("gay");
 }

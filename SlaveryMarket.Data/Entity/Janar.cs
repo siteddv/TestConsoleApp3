@@ -2,5 +2,9 @@ namespace SlaveryMarket.Data.Model;
 
 public class Janar
 {
-    public bool gender {  get; set; }
+    public Janar(string gender) 
+    {
+        Gender = gender;
+    }
+    public string Gender {  get; set; }
 }

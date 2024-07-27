@@ -3,12 +3,7 @@ using SlaveryMarket.Data.Dto;
 namespace SlaveryMarket.Data.Model;
 
 public class Product
-{
-    public Product()
-    {
-
-    }
-    
+{   
     public Product(string articul, string name, string description, decimal price)
     {
         Name = name;
