@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SlaveryMarket.Web.Models;
 using SlaveryMarket.Web.Requests;
 using SlaveryMarket.Web.Responses;
 
@@ -6,9 +7,27 @@ namespace SlaveryMarket.Web.Controllers;
 
 public class AccountController : BaseController
 {
+
     [HttpPost]
-    public Response<object> SignUp([FromBody] SignUpRequest request)
+    [Route("login")]
+    public IActionResult Login([FromBody] LoginModel loginModel)
     {
-        return new Response<object>(null, "Sign up successfully", true);
+        var response = new Response<LoginModel>(null, "auth complete", true);
+
+        if(response.Success)
+        {
+            return Ok(response);
+        }
+
+        return Unauthorized(response.Message);
+    }
+
+    [HttpPost]
+    [Route("register")]
+    public IActionResult Register([FromBody] RegiterModel regiterModel)
+    {
+        var response = new Response<RegiterModel>(null, "register complete", true);
+
+        return Ok(response);
     }
 }

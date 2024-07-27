@@ -26,7 +26,6 @@ public class ProductController : BaseController
     [Route("get-all")]
     public Response<List<Product>> GetAll()
     {
-        var a = GetId();
         var products =  _productRepository.GetAll();
         if (!products.Any())
         {
