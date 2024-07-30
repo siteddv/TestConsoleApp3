@@ -1,6 +1,8 @@
+using SlaveryMarket.Data.Entity;
+
 namespace SlaveryMarket.Data.Model;
 
-public class Janar
+public class Janar : ApplicationUser
 {
     public Janar(string gender) 
     {

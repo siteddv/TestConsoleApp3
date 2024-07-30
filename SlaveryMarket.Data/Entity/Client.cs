@@ -3,7 +3,7 @@ using SlaveryMarket.Data.Model;
 
 namespace SlaveryMarket.Data.Entity;
 
-public class Client
+public class Client : ApplicationUser
 {
     public Client(string name, decimal cashAmount, string phone)
     {
