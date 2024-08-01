@@ -64,7 +64,27 @@ namespace SlavaeryMarket.Services.Implementations
 
         public Response<bool> RevokeRefreshTokenByUsername(string username)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (string.IsNullOrEmpty(username))
+                {
+                    throw new ArgumentNullException("username is null");
+                }
+
+                var user = _userManager.FindByNameAsync(username).Result;
+                user.RefreshToken = null;
+                _userManager.UpdateAsync(user);
+
+                return new Response<bool>(true, null, true);
+            }
+            catch (ArgumentException ex)
+            {
+                return new Response<bool>(false, ex.Message, false);
+            }
+            catch (Exception ex)
+            {
+                return new Response<bool>(false, ex.Message, false);
+            }
         }
 
         public Response<AuthResultStruct> UpdateToken(TokenModel model)
@@ -90,12 +110,21 @@ namespace SlavaeryMarket.Services.Implementations
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
             bool isTokenValidityInt = int.TryParse(_configuration["JWT:TokenValidityInMinutes"], out int tokenValidityInMinutes);
+
+            return new JwtSecurityToken
+                (
+                    issuer: _configuration["JWT:ValidIssuer"],
+                    audience: _configuration["JWT:ValidAudience"],
+                    expires: DateTime.Now.AddMinutes(isTokenValidityInt ? tokenValidityInMinutes : 0),
+                    claims: claims,
+                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                );
         }
 
         protected override ClaimsPrincipal GetClaimsPrincipalFromExpiredToken(string? token)
         {
             if (token == null || token == "") throw new ArgumentNullException("token is null");
-            
+
             var tokenValidationParams = new TokenValidationParameters
             {
                 ValidateAudience = false,
@@ -108,8 +137,8 @@ namespace SlavaeryMarket.Services.Implementations
             var tokenHandler = new JwtSecurityTokenHandler();
             var principal = tokenHandler.ValidateToken(token, tokenValidationParams, out SecurityToken securityToken);
 
-            if(securityToken is not JwtSecurityToken jwtSecurityToken
-                || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            if (securityToken is not JwtSecurityToken jwtSecurityToken ||
+                 !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
                 throw new SecurityTokenException("Invalid Token");
 
 
