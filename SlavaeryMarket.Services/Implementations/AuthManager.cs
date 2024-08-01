@@ -9,6 +9,7 @@ using SlaveryMarket.Web.Requests;
 using SlaveryMarket.Web.Responses;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace SlavaeryMarket.Services.Implementations
@@ -73,12 +74,22 @@ namespace SlavaeryMarket.Services.Implementations
 
         protected override string GenerateRefreshToken()
         {
-            throw new NotImplementedException();
+            var randomNamber = new byte[64];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNamber);
+            return Convert.ToBase64String(randomNamber);
         }
 
         protected override JwtSecurityToken GenerateToken(List<Claim> claims)
         {
-            throw new NotImplementedException();
+            if (claims == null)
+            {
+                throw new ArgumentNullException("claims is null");
+            }
+
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+
+            bool isTokenValidityInt = int.TryParse(_configuration["JWT:TokenValidityInMinutes"], out int tokenValidityInMinutes);
         }
 
         protected override ClaimsPrincipal GetClaimsPrincipalFromExpiredToken(string? token)
