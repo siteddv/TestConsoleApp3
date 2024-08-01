@@ -59,6 +59,7 @@ namespace SlavaeryMarket.Services.Implementations
                     return new Response<bool>(false, ex.Message, false);
                 }
             }
+        }
 
         public Response<bool> RevokeRefreshTokenByUsername(string username)
         {
