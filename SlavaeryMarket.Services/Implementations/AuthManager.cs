@@ -19,7 +19,7 @@ namespace SlavaeryMarket.Services.Implementations
         private readonly UserManager<T> _userManager;
         private readonly IConfiguration _configuration;
 
-        public AuthManager(UserManager<T> userManager, IConfiguration configuration) : base
+        public AuthManager(UserManager<T> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -37,8 +37,28 @@ namespace SlavaeryMarket.Services.Implementations
 
         public Response<bool> RevokeAllRefreshToken()
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var users = _userManager.Users.ToList();
+                foreach (var user in users)
+                {
+                    user.RefreshToken = null;
+                    _userManager.UpdateAsync(user);
+
+                }
+                return new Response<bool>(true, null, true);
+            }
+            catch (ArgumentException ex)
+            {
+
+                return new Response<bool>(false, ex.Message, false);
+            }
+            catch (Exception ex)
+            {
+                {
+                    return new Response<bool>(false, ex.Message, false);
+                }
+            }
 
         public Response<bool> RevokeRefreshTokenByUsername(string username)
         {
