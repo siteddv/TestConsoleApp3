@@ -33,7 +33,33 @@ namespace SlavaeryMarket.Services.Implementations
 
         public Response<string> Register(RegiterModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (model == null)
+                {
+                    throw new ArgumentNullException("model is null");
+                }
+
+                var user = new ApplicationUser
+                {
+                    Email = model.Email,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    UserName = model.UserName,
+                };
+
+                var result = _userManager.CreateAsync((ApplicationUser?)user, model.Password);
+                return
+            }
+            catch (ArgumentException ex)
+            {
+
+                return new Response<string>(null, ex.Message, false);
+            }
+            catch (Exception ex)
+            {
+
+                return new Response<string>(null, ex.Message, false);
+            }
         }
 
         public Response<bool> RevokeAllRefreshToken()
