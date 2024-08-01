@@ -94,7 +94,8 @@ namespace SlavaeryMarket.Services.Implementations
 
         protected override ClaimsPrincipal GetClaimsPrincipalFromExpiredToken(string? token)
         {
-            //VALIDATION
+            if (token == null || token == "") throw new ArgumentNullException("token is null");
+            
             var tokenValidationParams = new TokenValidationParameters
             {
                 ValidateAudience = false,
