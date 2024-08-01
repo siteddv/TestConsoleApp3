@@ -56,9 +56,9 @@ namespace SlavaeryMarket.Services.Implementations
             }
             catch (Exception ex)
             {
-                {
-                    return new Response<bool>(false, ex.Message, false);
-                }
+                
+                return new Response<bool>(false, ex.Message, false);
+                
             }
         }
 
